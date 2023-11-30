@@ -26,9 +26,12 @@ function dfs_iterative(r,c,endNode,Grid,N,M,d){
         }
         if(neighbours.length > 0){
 
-            let random = (Math.floor(Math.random()*10))%neighbours.length;
-            let x = neighbours[random].x;
-            let y = neighbours[random].y;
+            // let random = (Math.floor(Math.random()*10))%neighbours.length;
+            // let random = 1;
+
+            //always going to the left-most possible node
+            let x = neighbours[0].x;
+            let y = neighbours[0].y;
 
             if(x===endNode.x && y===endNode.y){
                 visitedNodes.push({x,y});
