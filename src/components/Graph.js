@@ -6,7 +6,7 @@ import Djikstra from '../algorithm/djikstra';
 import Modal from '../extras/Modal';
 
 
-var rows = 18;
+var rows = 25;
 var cols = 34;
 
 var START_NODE_ROW = 4, START_NODE_COL = 6;
