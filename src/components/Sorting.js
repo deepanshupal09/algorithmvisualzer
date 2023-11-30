@@ -365,7 +365,7 @@ export default function Sorting() {
           );
         })}
       </div>
-      <div className="w-[20%] ">
+      <div className="w-[20%] pl-4 ">
         <FormControl fullWidth>
           <InputLabel id="demo-simple-select-label">Algorithm</InputLabel>
           <Select
@@ -487,7 +487,7 @@ export default function Sorting() {
           />
         </div>
         <div className="flex flex-col justify-center">
-          <div className=" flex pt-5 pb-2">
+          <div className=" flex pt-5 pb-2 space-x-2">
             {/* <button
               className="w-[50%] bg-blue-500 font-semibold border rounded-lg text-white p-4"
               onClick={() => {
@@ -508,7 +508,7 @@ export default function Sorting() {
               &nbsp;Reset
             </button>
             <button
-              className="w-[50%] bg-green-500 font-semibold border rounded-lg flex items-center justify-center space-x-1 text-white p-4"
+              className="w-[50%]  bg-green-500 font-semibold border rounded-lg flex items-center justify-center space-x-1 text-white p-4"
               onClick={handleVisualize}
             >
               {play === 0 || play === 2 ? (
