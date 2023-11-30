@@ -206,7 +206,7 @@
     height: 30px;
     outline: 2px solid #FFC300;
     animation-name: shortestPathAnimation;
-    animation-duration: 500ms;
+    animation-duration: 800ms;
     animation-iteration-count: 1;
     animation-fill-mode: forwards;
     animation-play-state: running;
