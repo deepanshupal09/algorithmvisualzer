@@ -1,10 +1,13 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import { Slider } from "@mui/material";
 import ShuffleIcon from "@mui/icons-material/Shuffle";
 import InputLabel from "@mui/material/InputLabel";
 import MenuItem from "@mui/material/MenuItem";
 import FormControl from "@mui/material/FormControl";
 import Select from "@mui/material/Select";
+import PlayCircleIcon from "@mui/icons-material/PlayCircle";
+import PauseCircleIcon from "@mui/icons-material/PauseCircle";
+import RestartAltIcon from "@mui/icons-material/RestartAlt";
 
 export default function Sorting() {
   const [arr, setArr] = useState([
@@ -23,13 +26,19 @@ export default function Sorting() {
   const [speed, setSpeed] = useState(1);
   const [algo, setAlgo] = useState(1);
   const [states, setStates] = useState([]);
-
-
+  const [play, setPlay] = useState(0);
+  const playRef = useRef(play);
+  // const arrRef = useRef(arr);
+  const speedRef = useRef(speed);
 
   function handleSize(newValue) {
-    setSize(newValue);
-    let a = createRandomArray(newValue);
-    setArr(a);
+    // console.log("HELLO SIZE");
+    if (playRef.current === 0) {
+      // console.log("inside");
+      setSize(newValue);
+      let a = createRandomArray(newValue);
+      setArr(a);
+    }
   }
 
   function createRandomArray(size) {
@@ -39,15 +48,39 @@ export default function Sorting() {
     }
     return arr;
   }
+
   useEffect(() => {
-    console.log("arr: ", arr);
+    // console.log("play: ", play);
+    playRef.current = play; // update the ref each time the play state changes
+  }, [play]);
+  useEffect(() => {
+    speedRef.current = speed; // update the ref each time the play state changes
+  }, [speed]);
+
+  useEffect(() => {
+    // console.log("arr: ", arr);
   }, [arr]);
   useEffect(() => {
     async function visualize() {
+      setPlay(1);
+      // console.log("play");
       for (let state of states) {
+        // console.log("state: ", state);
+        while (playRef.current === 2) {
+          // console.log("inside loop");
+          await sleep(100);
+        }
+        if (playRef.current === 0) {
+          // console.log("here");
+          handleSize(size);
+          // setPlay(0);
+          // handleSize(size);
+          break;
+        }
         setArr(state);
-        await sleep(200 / speed);
+        await sleep(200 / speedRef.current);
       }
+      setPlay(0);
     }
     visualize();
   }, [states]);
@@ -59,7 +92,7 @@ export default function Sorting() {
   function bubblesort() {
     let st = [];
     let nums = JSON.parse(JSON.stringify(arr));
-    console.log("bubble sort");
+    // console.log("bubble sort");
     for (let i = 0; i < size - 1; i++) {
       for (let j = 0; j < size - i - 1; j++) {
         if (nums[j][0] > nums[j + 1][0]) {
@@ -85,7 +118,7 @@ export default function Sorting() {
   }
 
   function insertionsort() {
-    console.log("insertion sort");
+    // console.log("insertion sort");
     let st = [];
     let nums = JSON.parse(JSON.stringify(arr));
     for (let i = 1; i < size; i++) {
@@ -114,7 +147,7 @@ export default function Sorting() {
   }
 
   function mergesort() {
-    console.log("merge sort");
+    // console.log("merge sort");
     let st = [];
     let nums = JSON.parse(JSON.stringify(arr));
     mergeSortHelper(nums, 0, size - 1, st);
@@ -185,7 +218,7 @@ export default function Sorting() {
   }
 
   function heapsort() {
-    console.log("heap sort");
+    // console.log("heap sort");
     let nums = JSON.parse(JSON.stringify(arr));
     let st = [];
     for (let i = size / 2 - 1; i >= 0; i--) {
@@ -271,7 +304,7 @@ export default function Sorting() {
 
   function quicksort() {
     let st = [];
-    console.log("quick sort");
+    // console.log("quick sort");
     let nums = JSON.parse(JSON.stringify(arr));
     quickSortHelper(nums, 0, size - 1, st);
 
@@ -287,22 +320,29 @@ export default function Sorting() {
   }
 
   async function handleVisualize() {
-    if (algo === 1) {
-      bubblesort();
-    } else if (algo === 2) {
-      insertionsort();
-    } else if (algo === 3) {
-      mergesort();
-    } else if (algo === 4) {
-      heapsort();
-    } else if (algo === 5) {
-      quicksort();
+    if (play === 1) {
+      setPlay(2);
+      return;
+    } else if (play === 2) {
+      setPlay(1);
+      return;
+    } else {
+      setPlay(1);
+      if (algo === 1) {
+        bubblesort();
+      } else if (algo === 2) {
+        insertionsort();
+      } else if (algo === 3) {
+        mergesort();
+      } else if (algo === 4) {
+        heapsort();
+      } else if (algo === 5) {
+        quicksort();
+      }
     }
   }
   return (
-    <div
-      className={`justify-between flex p-5 my-6`}
-    >
+    <div className={`justify-between flex p-5 my-6`}>
       {/* Sorting */}
       <div className="flex h-[80vh] w-[80%] items-end pr-4">
         {arr.map((element) => {
@@ -446,22 +486,40 @@ export default function Sorting() {
             valueLabelDisplay="auto"
           />
         </div>
-        <div className=" flex py-5">
-          <button
-            className="w-[50%] bg-blue-500 font-semibold border rounded-lg text-white p-4"
-            onClick={() => {
-              handleSize(size);
-            }}
-          >
-            {" "}
-            <ShuffleIcon></ShuffleIcon> Randomize
-          </button>
-          <button
-            className="w-[50%] bg-green-500 font-semibold border rounded-lg text-white p-4"
-            onClick={handleVisualize}
-          >
-            Visualize!
-          </button>
+        <div className="flex flex-col justify-center">
+          <div className=" flex pt-5 pb-2">
+            {/* <button
+              className="w-[50%] bg-blue-500 font-semibold border rounded-lg text-white p-4"
+              onClick={() => {
+                handleSize(size);
+              }}
+            >
+              {" "}
+              <ShuffleIcon></ShuffleIcon> Randomize
+            </button> */}
+            <button
+              className="w-[50%] bg-red-500 font-semibold border rounded-lg flex items-center justify-center space-x-1 text-white p-4"
+              onClick={() => {
+                setPlay(0);
+                handleSize(size);
+              }}
+            >
+              <RestartAltIcon className="scale-125" />
+              &nbsp;Reset
+            </button>
+            <button
+              className="w-[50%] bg-green-500 font-semibold border rounded-lg flex items-center justify-center space-x-1 text-white p-4"
+              onClick={handleVisualize}
+            >
+              {play === 0 || play === 2 ? (
+                <PlayCircleIcon className="scale-125" />
+              ) : (
+                <PauseCircleIcon className="scale-125" />
+              )}
+              <div>{play === 0 ? "Start" : play === 1 ? "Pause" : "Play"}</div>
+            </button>
+          </div>
+          <div className="flex  justify-center"></div>
         </div>
       </div>
     </div>
