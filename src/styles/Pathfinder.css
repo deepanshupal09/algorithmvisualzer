@@ -4,9 +4,12 @@
 
 .path-container{
     margin : 10px auto;
-    max-width: 1020px;
-    /* display: flex; */
-    /* justify-content: left; */
+    max-width: 1400px;
+    display: flex; 
+    justify-content: left; 
+ }
+ .path-ui-position{
+   display: flex;
  }
  
  .path-header{
@@ -17,21 +20,33 @@
  
  .path-speed-btns{
    display: flex;
-   /* width: 200px; */
+   width: 410px;
    margin-top: 6px;
    justify-content: center;
+   margin-bottom: 10px;
+   margin-left: 10px;
  }
  
  .my-drop-down{
-   text-align: center;
-    cursor: pointer;
+   /* text-align: center; */
+    /* cursor: pointer;
     padding: 5.5px;
     margin-right: 8px;
-    height: 45px;
-    width: 220px;
+    height: 65px;
+    width: 328px;
     border-radius: 3px;
     outline: 2px solid #9dd3f8;
+    margin-left: 30px; */
+    /* margin-inline-start: auto; */
     /* outline: 2px solid ; */
+    margin-left: 20px;
+    margin-bottom: 20px;
+    margin-top: 40px;
+    
+ }
+ .my-drop-down-label{
+   margin-left: 20px;
+   margin-top: 40px;
  }
 
  .start {
@@ -108,17 +123,70 @@
  .start-btn{
     background-color: #3b82f6;
     color: white;
-    width: 270px;
-    height: 45px;
+    width: 370px;
+    height: 65px;
+    margin-bottom: 15px;
+    margin-left: 30px;
  }
- 
- /* .start-maze-btn{
-    background-color: #000;
-    color: white;
+ .button-5{
+
+   background-color: #FAFBFC;
+   border: 3px solid rgba(27, 31, 35, 0.15);
+   border-radius: 4px;
+   box-shadow: rgba(27, 31, 35, 0.04) 0 1px 0, rgba(255, 255, 255, 0.25) 0 1px 0 inset;
+   box-sizing: border-box;
+   color: #24292E;
+   font-family: -apple-system, system-ui, "Segoe UI", Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji";
+   font-size: 16px;
+   font-weight: 500;
+   cursor: pointer;
+   /* width: 410px; */
+   position: relative;
+   padding: 8px 12px;
+   margin-right: 8px;
+   width: 190px;
+   margin-top: 20px;
+   margin-left: 15px;
+   height: 55px;
+   transition: background-color 0.2s cubic-bezier(0.3, 0, 0.5, 1);
+   user-select: none;
+   -webkit-user-select: none;
+   touch-action: manipulation;
+   vertical-align: middle;
+   white-space: nowrap;
+   word-wrap: break-word;
+   
  }
- .start-maze-btn:hover{
-    background-color: #000;
- } */
+
+ .button-6{
+   background-color: #ef4444;
+   border: 3px solid rgba(27, 31, 35, 0.15);
+   border-radius: 4px;
+   box-shadow: rgba(27, 31, 35, 0.04) 0 1px 0, rgba(255, 255, 255, 0.25) 0 1px 0 inset;
+   box-sizing: border-box;
+   color: #24292E;
+   font-family: -apple-system, system-ui, "Segoe UI", Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji";
+   font-size: 16px;
+   font-weight: 500;
+   color: #FFFFFF;
+   cursor: pointer;
+   /* width: 410px; */
+   position: relative;
+   padding: 8px 12px;
+   margin-left: 15px;
+   width: 403px;
+   margin-top: 20px;
+   height: 70px;
+   margin-top: 20px;
+   transition: background-color 0.2s cubic-bezier(0.3, 0, 0.5, 1);
+   user-select: none;
+   -webkit-user-select: none;
+   touch-action: manipulation;
+   vertical-align: middle;
+   white-space: nowrap;
+   word-wrap: break-word;
+ }
+
  .curr-speed-btn{
     background-color: #22c55e;
     color: white;
@@ -128,7 +196,21 @@
     background-color: #73dd9a;
  }
  
- 
+ .button-formcontrol{
+   display: flex;
+   flex-direction: column;
+ }
+
+ /* reset buttons div */
+ .last-buttons{
+   display: flex;
+   flex-direction: column;
+ }
+ .last-buttons-1st2nd{
+   display: flex;
+   justify-content: center;
+ }
+
  /* this grid designing */
  .grid{
     display: flex;

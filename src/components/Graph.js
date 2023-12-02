@@ -3,11 +3,15 @@ import '../styles/Pathfinder.css';
 import BFS from '../algorithm/bfs';
 import DFS from '../algorithm/dfs';
 import Djikstra from '../algorithm/djikstra';
-import Modal from '../extras/Modal';
+import InputLabel from "@mui/material/InputLabel";
+import MenuItem from "@mui/material/MenuItem";
+import FormControl from "@mui/material/FormControl";
+import Select from "@mui/material/Select";
+import Slider from '@mui/material/Slider';
 
 
 var rows = 22;
-var cols = 34; //34
+var cols = 32; //34
 
 var START_NODE_ROW = 4, START_NODE_COL = 6;
 var END_NODE_ROW = rows-6, END_NODE_COL = cols-6;
@@ -20,13 +24,28 @@ function Graph() {
   const [Grid,setGrid] = useState([]);  // array destructuring
   const [isMousePress,setIsMousePress] = useState(false);
   const [pathID,setPathID] = useState(0);
+  const [pathExist,setPathExist] = useState(false);
   const [animateType,setAnimateTimeType] = useState(2);
 
 
   useEffect(()=>{
-      gridInitialize();
+    gridInitialize();
     //   popupClickHandle();
   },[])
+
+  useEffect(()=>{
+    console.log(pathExist);
+    if(pathExist===true){
+        console.log("hello")
+        var btns = document.getElementsByClassName('button-4');
+        for(let i=0; i<btns.length; i++){
+            if(btns[i]) {
+                btns[i].disabled = true;
+            }
+        }
+        btns[btns.length-1].disabled=false;
+    }
+  },[pathExist])
 
   const gridInitialize =()=>{
       var grid = new Array(rows);
@@ -92,11 +111,14 @@ function Graph() {
               btns[i].disabled = true;
           }
       }
+
+      //whenever path is made
       // document.getElementsByTagName('select')[0].disabled = true;
       // document.getElementsByTagName('select')[1].disabled = true;
       // for(let i=0; i<btns.length; i++){
-      //     btns[i].disabled = true;
-      // }
+          //     btns[i].disabled = true;
+          // }
+          
 
       var startNode = Grid[START_NODE_ROW][START_NODE_COL];
       var endNode = Grid[END_NODE_ROW][END_NODE_COL];
@@ -137,6 +159,7 @@ function Graph() {
           }
       }
 
+      setPathExist(true);
       // <audio controls autoplay>
       //     <source src={Sober} type="audio/mpeg"/>
       // </audio>
@@ -183,12 +206,7 @@ function Graph() {
   const onMouseUp = ()=>{
       setIsMousePress(()=>false);
   }
-  const animationTimeHandle = (type) =>{
-      if(type === 1) animateTime = 8;
-      else if(type === 2) animateTime = 35;
-      else animateTime = 80;
-      setAnimateTimeType(type);
-  }
+  
 
   const setStartEndNode = (id, r, c) =>{
       if(id === 1){
@@ -214,83 +232,160 @@ function Graph() {
           END_NODE_COL = c;
       } 
   }
-  const popupClickHandle = () =>{
-      var blur = document.getElementById("Container-blur");
-      blur.classList.toggle('active');
-      var popup = document.getElementById("popup");
-      popup.classList.toggle('unActive');
-  }
-  return (
-    // <div>
-            <>
-      {/* <Modal style={{border: "1px solid #334155", paddingBottom: "20px"}} popupClickHandle = {popupClickHandle}>
-          <h3 style={{color:"#334155",textAlign:"center"}}>Video Tutorial</h3>
-          <div style={{display:"flex",justifyContent:"center"}}>
-              <iframe width="90%" height="300px" src="https://www.youtube.com/embed/iK95rIRVbMo?autoplay=1&mute=1" title='myVideo'>
-              </iframe> 
-          </div>
-      </Modal> */}
 
-      <div id="Container-blur">
-          <div className='path-container'>
-              <div className='path-header'>
-                      <div>
-                          <div style={{"display":"flex","margin":"6px auto"}}>
-                              <div>
-                                  <button className='button-4 start-btn' onClick={pathFinding}>
-                                      Find the possible path
-                                  </button>
-                              </div>
-                              <div>
-                                  <select className='my-drop-down' value={pathID} onChange={(e)=>{setPathID(parseInt(e.target.value))}}>
-                                      <option value="0">Breadth-First Search</option>
-                                      <option value="1">Depth-First Search</option>
-                                      <option value="2">Djikstra's Algorithm</option>
-                                  </select>
-                              </div>
-                          </div>
-                          <div className='path-speed-btns'>
-                              <button className={`button-1 ${animateType===1 && 'curr-speed-btn'}`} onClick={()=>animationTimeHandle(1)}>Fast</button>
-                              <button className={`button-1 ${animateType===2 && 'curr-speed-btn'}`} onClick={()=>animationTimeHandle(2)}>Average</button>
-                              <button className={`button-1 ${animateType===3 && 'curr-speed-btn'}`} onClick={()=>animationTimeHandle(3)}>Slow</button>
-                          </div>
-                      </div>
-                          <div style={{"display":"flex"}}>
-                              <button className='button-4' onClick={gridInitialize}>Clear walls</button>
-                              <button className='button-4' onClick={clearPathHandle}>Clear path</button>
-                              <button className='button-4' onClick={()=>{
-                                  START_NODE_ROW = InitSR;
-                                  START_NODE_ROW = InitSC;
-                                  END_NODE_ROW = InitER;
-                                  END_NODE_COL = InitEC;
-                                  clearPathHandle();
-                                  gridInitialize();
-                              }}>
-                                  Reset board
-                              </button>
-                          </div>
-                      {/* </div> */}
-              </div>
-              <div className='grid'>
-                  <div onMouseLeave={()=>{setIsMousePress(false)}}>
-                  {/* JSX Node Of Grid (2D Array) */}
-                  {Grid.map((R,idx_r)=>{
-                  return (<div key={idx_r} className='ROW'>
-                              {R.map((Value,idx_c)=>{
-                                      const {x,y,isStart,isEnd,isWall} = Value;
-                                      return <Node key={idx_c} 
-                                      pv={{x,y,isStart,isEnd,isWall,onMouseDown,onMouseEnter,onMouseUp,setStartEndNode}}>
-                                      </Node>
-                                  })
-                              }
-                          </div>)
-                  })}
-                  </div>
-              </div>
-          </div>
-      </div>
-      </>
-    // </div>
+    const animationTimeHandle = (type) =>{
+        if(type === 3) animateTime = 8;
+        else if(type === 2) animateTime = 35;
+        else animateTime = 80;
+        setAnimateTimeType(type);
+        console.log(type);
+    }
+    const marks = [
+        {
+        value: 1,
+        label: 'Slow',
+        },
+        {
+        value: 2,
+        label: 'Average',
+        },
+        {
+        value: 3,
+        label: 'Fast',
+        },
+    ];
+  
+  function valuetext(value) {
+    return value;
+  }
+  
+  function valueLabelFormat(value) {
+    return value;
+  }
+
+  return (
+    <div className="path-container">
+        <div className="path-ui-position">
+            <div className='grid'>
+                <div onMouseLeave={()=>{setIsMousePress(false)}}>
+                {/* JSX Node Of Grid (2D Array) */}
+                {Grid.map((R,idx_r)=>{
+                return (<div key={idx_r} className='ROW'>
+                            {R.map((Value,idx_c)=>{
+                                    const {x,y,isStart,isEnd,isWall} = Value;
+                                    return <Node key={idx_c} 
+                                    pv={{x,y,isStart,isEnd,isWall,onMouseDown,onMouseEnter,onMouseUp,setStartEndNode}}>
+                                    </Node>
+                                })
+                            }
+                        </div>)
+                })}
+                </div>
+            </div>
+            <div>
+                <div className="button-formcontrol">
+                    {/* <select className='my-drop-down' value={pathID} onChange={(e)=>{setPathID(parseInt(e.target.value))}}>
+                        <option value="0">Breadth-First Search</option>
+                        <option value="1">Depth-First Search</option>
+                        <option value="2">Djikstra's Algorithm</option>
+                    </select> */}
+                    <FormControl fullWidth>
+                        <InputLabel id="demo-simple-select-label" className='my-drop-down-label'>Algorithm</InputLabel>
+                        <Select
+                            className="my-drop-down"
+                            value={pathID}
+                            labelId="demo-simple-select-label"
+                            onChange={(e)=>{setPathID(parseInt(e.target.value))}}
+                            id="demo-simple-select"
+                            label="Algorithm"
+                        >
+                            <MenuItem value={0}>Breadth-First Search</MenuItem>
+                            <MenuItem value={1}>Depth-First Search</MenuItem>
+                            <MenuItem value={2}>Djikstra's Algorithm</MenuItem>
+                            {/* <MenuItem value={4}>Heap Sort</MenuItem>
+                            <MenuItem value={5}>Quick Sort</MenuItem> */}
+                        </Select>
+                    </FormControl>
+                    <button className='button-4 start-btn' onClick={pathFinding}>
+                        Find the possible path
+                    </button>
+                </div>
+                <div className='path-speed-btns'>
+                    {/* <button className={`button-1 ${animateType===1 && 'curr-speed-btn'}`} onClick={()=>animationTimeHandle(1)}>Fast</button>
+                    <button className={`button-1 ${animateType===2 && 'curr-speed-btn'}`} onClick={()=>animationTimeHandle(2)}>Average</button>
+                    <button className={`button-1 ${animateType===3 && 'curr-speed-btn'}`} onClick={()=>animationTimeHandle(3)}>Slow</button> */}
+                    <Slider
+                        sx={{
+                            color: "#3b82f6",
+                            marginLeft: "10px",
+                            height: 8,
+                            "& .MuiSlider-track": {
+                              border: "none",
+                            },
+                            "& .MuiSlider-thumb": {
+                              height: 24,
+                              width: 24,
+                              backgroundColor: "#fff",
+                              border: "2px solid currentColor",
+                              "&:focus, &:hover, &.Mui-active, &.Mui-focusVisible": {
+                                boxShadow: "inherit",
+                              },
+                              "&:before": {
+                                display: "none",
+                              },
+                            },
+                            "& .MuiSlider-valueLabel": {
+                              lineHeight: 1.2,
+                              fontSize: 12,
+                              background: "unset",
+                              padding: 0,
+                              width: 32,
+                              height: 32,
+                              borderRadius: "50% 50% 50% 0",
+                              backgroundColor: "#3b82f6",
+                              transformOrigin: "bottom left",
+                              transform: "translate(50%, -100%) rotate(-45deg) scale(0)",
+                              "&:before": { display: "none" },
+                              "&.MuiSlider-valueLabelOpen": {
+                                transform: "translate(50%, -100%) rotate(-45deg) scale(1)",
+                              },
+                              "& > *": {
+                                transform: "rotate(45deg)",
+                              },
+                            },
+                          }}
+                        aria-label="Restricted values"
+                        defaultValue={1}
+                        valueLabelFormat={valueLabelFormat}
+                        getAriaValueText={valuetext}
+                        step={null}
+                        valueLabelDisplay="auto"
+                        min={1}
+                        max={3}
+                        marks={marks}
+                        onChange={(e,ne)=>animationTimeHandle(ne)}
+                    />
+                </div>
+                <div className='last-buttons'>
+                    <div className='last-buttons-1st2nd'>
+                        <button className='button-4 button-5' onClick={gridInitialize}>Clear walls</button>
+                        <button className='button-4 button-5' onClick={clearPathHandle}>Clear path</button>
+                    </div>
+                    <button className='button-4 button-6' onClick={()=>{
+                        START_NODE_ROW = InitSR;
+                        START_NODE_ROW = InitSC;
+                        END_NODE_ROW = InitER;
+                        END_NODE_COL = InitEC;
+                        clearPathHandle();
+                        gridInitialize();
+                        setPathExist(false);
+                    }}>
+                        Reset board
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
   )
 }
 
@@ -305,6 +400,7 @@ class Spot {
 }
 
 function Node({pv}){
+    
   const {x,y,isStart,isEnd,isWall,onMouseDown,onMouseEnter,onMouseUp,setStartEndNode} = pv;
   const allowDrop=(e)=>{e.preventDefault();}
   const drag=(e)=>{e.dataTransfer.setData("myID", e.target.id);}
@@ -324,7 +420,6 @@ function Node({pv}){
   var classNode = isStart?"START_NODE":(isEnd?"END_NODE":(isWall?"obtacle":""));
   var typeId = isStart?"1":(isEnd?"2":"3");
 
-
   //if start or end node, dragging the node is possible
   if(isStart || isEnd){
       return (
@@ -342,7 +437,6 @@ function Node({pv}){
           </div>
       )
   }
-
   //if regular node, mouse handlers can be activated accrodingly
   else{
       return(
@@ -383,3 +477,5 @@ const isValid = (r,c) =>{
   else return 1;
 }
 export default Graph;
+
+
