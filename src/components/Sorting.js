@@ -373,6 +373,7 @@ export default function Sorting() {
           <InputLabel id="demo-simple-select-label">Algorithm</InputLabel>
           <Select
             value={algo}
+            disabled={play!==0}
             labelId="demo-simple-select-label"
             onChange={(event) => {
               if (play === 0) setAlgo(event.target.value);
@@ -390,6 +391,7 @@ export default function Sorting() {
         <div>
           <div className=" py-4">Array Size: {size} </div>
           <Slider
+            disabled={play!==0}
             className="md:ml-3"
             sx={{
               color: "#3b82f6",

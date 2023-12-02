@@ -25,7 +25,7 @@ function Graph() {
 
   useEffect(()=>{
       gridInitialize();
-      popupClickHandle();
+    //   popupClickHandle();
   },[])
 
   const gridInitialize =()=>{
@@ -223,13 +223,13 @@ function Graph() {
   return (
     // <div>
             <>
-      <Modal style={{border: "1px solid #334155", paddingBottom: "20px"}} popupClickHandle = {popupClickHandle}>
+      {/* <Modal style={{border: "1px solid #334155", paddingBottom: "20px"}} popupClickHandle = {popupClickHandle}>
           <h3 style={{color:"#334155",textAlign:"center"}}>Video Tutorial</h3>
           <div style={{display:"flex",justifyContent:"center"}}>
-              {/* <iframe width="90%" height="300px" src="https://www.youtube.com/embed/iK95rIRVbMo?autoplay=1&mute=1" title='myVideo'> */}
-              {/* </iframe>  */}
+              <iframe width="90%" height="300px" src="https://www.youtube.com/embed/iK95rIRVbMo?autoplay=1&mute=1" title='myVideo'>
+              </iframe> 
           </div>
-      </Modal>
+      </Modal> */}
 
       <div id="Container-blur">
           <div className='path-container'>
