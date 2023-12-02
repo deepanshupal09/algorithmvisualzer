@@ -1,15 +1,25 @@
 /* .grid{
     margin: 500px 0 0;
 } */
+.grid {
+   display: flex;
+   justify-content: center;
+}
+
 
 .path-container{
-    margin : 10px auto;
-    max-width: 1400px;
+    margin-top: 30px;
+    margin-left:10px;
+   
+    /* max-width: 1400px; */
     display: flex; 
     justify-content: left; 
  }
  .path-ui-position{
    display: flex;
+   justify-content: space-around;
+   /* width: 1; */
+   /* width: 100%; */
  }
  
  .path-header{
@@ -20,24 +30,13 @@
  
  .path-speed-btns{
    display: flex;
-   width: 410px;
+   /* width: ; */
    margin-top: 6px;
    justify-content: center;
    margin-bottom: 10px;
    margin-left: 10px;
  }
  
- .my-drop-down{
-    margin-left: 20px;
-    margin-bottom: 20px;
-    margin-top: 40px;
-    
- }
- .my-drop-down-label{
-   margin-left: 20px;
-   margin-top: 40px;
- }
-
  .start {
    background-color: #22c55e !important;
    color: white !important;
@@ -112,10 +111,11 @@
  .start-btn{
     background-color: #3b82f6;
     color: white;
-    width: 370px;
+    width: 100%;
     height: 65px;
     margin-bottom: 15px;
-    margin-left: 30px;
+    margin-top: 15px;
+    /* margin-left: 30px; */
  }
  .button-5{
    background-color: #FAFBFC;
@@ -132,7 +132,7 @@
    position: relative;
    padding: 8px 12px;
    margin-right: 8px;
-   width: 190px;
+   width: 100%;
    margin-top: 20px;
    margin-left: 15px;
    height: 55px;
@@ -166,13 +166,15 @@
  }
  .last-buttons-1st2nd{
    display: flex;
+   width: 100%;
    justify-content: center;
  }
 
  /* this grid designing */
  .grid{
     display: flex;
-    justify-content: center;
+    /* justify-content: center; */
+    width:100%;
  }
  
  .ROW{
