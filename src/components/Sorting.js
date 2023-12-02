@@ -1,6 +1,5 @@
 import { useEffect, useState, useRef } from "react";
 import { Slider } from "@mui/material";
-import ShuffleIcon from "@mui/icons-material/Shuffle";
 import InputLabel from "@mui/material/InputLabel";
 import MenuItem from "@mui/material/MenuItem";
 import FormControl from "@mui/material/FormControl";
@@ -40,6 +39,10 @@ export default function Sorting() {
       setArr(a);
     }
   }
+
+  useEffect(()=>{
+    handleSize(100);
+  },[])
 
   function createRandomArray(size) {
     let arr = [];
@@ -342,9 +345,9 @@ export default function Sorting() {
     }
   }
   return (
-    <div className={`justify-between flex p-5 my-6`}>
+    <div className={`justify-between flex max-md:flex-col p-5 my-6`}>
       {/* Sorting */}
-      <div className="flex h-[80vh] w-[80%] items-end pr-4">
+      <div className="flex h-[80vh] w-[80%] max-md:w-[100%] items-end pr-4 max-md:order-2">
         {arr.map((element) => {
           let max = arr[0][0];
           arr.forEach((e) => {
@@ -365,14 +368,14 @@ export default function Sorting() {
           );
         })}
       </div>
-      <div className="w-[20%] pl-4 ">
+      <div className="w-[20%] max-md:w-[100%] max-md:text-xs max-md:order-1 max-md:mb-4">
         <FormControl fullWidth>
           <InputLabel id="demo-simple-select-label">Algorithm</InputLabel>
           <Select
             value={algo}
             labelId="demo-simple-select-label"
             onChange={(event) => {
-              setAlgo(event.target.value);
+              if (play === 0) setAlgo(event.target.value);
             }}
             id="demo-simple-select"
             label="Algorithm"
@@ -385,8 +388,9 @@ export default function Sorting() {
           </Select>
         </FormControl>
         <div>
-          <div className="py-4">Array Size: {size} </div>
+          <div className=" py-4">Array Size: {size} </div>
           <Slider
+            className="md:ml-3"
             sx={{
               color: "#3b82f6",
               height: 8,
@@ -438,6 +442,7 @@ export default function Sorting() {
         <div>
           <div className="py-4">Speed: {speed}x</div>
           <Slider
+            className="md:ml-3"
             sx={{
               color: "#3b82f6",
               height: 8,
@@ -498,28 +503,28 @@ export default function Sorting() {
               <ShuffleIcon></ShuffleIcon> Randomize
             </button> */}
             <button
-              className="w-[50%] bg-red-500 font-semibold border rounded-lg flex items-center justify-center space-x-1 text-white p-4"
+              className="w-[50%] max-lg:text-sm max-md:text-xs bg-red-500 font-semibold border rounded-lg flex items-center justify-center space-x-1 text-white p-4"
               onClick={() => {
                 setPlay(0);
                 handleSize(size);
               }}
             >
-              <RestartAltIcon className="scale-125" />
+              <RestartAltIcon className="scale-75 md:scale-100 lg:scale-125" />
               &nbsp;Reset
             </button>
             <button
-              className="w-[50%]  bg-green-500 font-semibold border rounded-lg flex items-center justify-center space-x-1 text-white p-4"
+              className="w-[50%] max-lg:text-sm max-md:text-xs  bg-green-500 font-semibold border rounded-lg flex items-center justify-center space-x-1 text-white p-4"
               onClick={handleVisualize}
             >
               {play === 0 || play === 2 ? (
-                <PlayCircleIcon className="scale-125" />
+                <PlayCircleIcon className="scale-75 md:scale-100 lg:scale-125" />
               ) : (
-                <PauseCircleIcon className="scale-125" />
+                <PauseCircleIcon className="scale-75 md:scale-100 lg:scale-125" />
               )}
               <div>{play === 0 ? "Start" : play === 1 ? "Pause" : "Play"}</div>
             </button>
           </div>
-          <div className="flex  justify-center"></div>
+          {/* <div className="flex  justify-center"></div> */}
         </div>
       </div>
     </div>
