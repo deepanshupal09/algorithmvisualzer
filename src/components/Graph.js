@@ -45,6 +45,14 @@ function Graph() {
         }
         btns[btns.length-1].disabled=false;
     }
+    else{
+        var btns = document.getElementsByClassName('button-4');
+        for(let i=0; i<btns.length; i++){
+            if(btns[i]) {
+                btns[i].disabled = false;
+            }
+        }
+    }
   },[pathExist])
 
   const gridInitialize =()=>{
@@ -110,16 +118,8 @@ function Graph() {
           if(btns[i]) {
               btns[i].disabled = true;
           }
-      }
-
-      //whenever path is made
-      // document.getElementsByTagName('select')[0].disabled = true;
-      // document.getElementsByTagName('select')[1].disabled = true;
-      // for(let i=0; i<btns.length; i++){
-          //     btns[i].disabled = true;
-          // }
-          
-
+        }
+        
       var startNode = Grid[START_NODE_ROW][START_NODE_COL];
       var endNode = Grid[END_NODE_ROW][END_NODE_COL];
 
@@ -141,12 +141,6 @@ function Graph() {
           break;
       }
 
-      // document.getElementsByTagName('select')[0].disabled = false;
-      // document.getElementsByTagName('select')[1].disabled = false;
-      // for(let i=0; i<btns.length; i++){
-      //     btns[i].disabled = false;
-      // }
-
       if(selects.length > 0) {
           selects[0].disabled = false;
           if(selects.length > 1) {
@@ -160,9 +154,6 @@ function Graph() {
       }
 
       setPathExist(true);
-      // <audio controls autoplay>
-      //     <source src={Sober} type="audio/mpeg"/>
-      // </audio>
   }
 
   
@@ -185,11 +176,13 @@ function Graph() {
       /*
           ********* the concept should be known array reference and copy *****
       */
-      var newGrid = [...Grid] // array copy
-      var node = newGrid[row][col];
-      node.isWall = !node.isWall;
-      newGrid[row][col] = node;
-      setGrid(newGrid);
+     if(!pathExist){
+        var newGrid = [...Grid] // array copy
+        var node = newGrid[row][col];
+        node.isWall = !node.isWall;
+        newGrid[row][col] = node;
+        setGrid(newGrid);
+     }
   }
 
   const onMouseDown = (row,col)=>{
@@ -209,6 +202,7 @@ function Graph() {
   
 
   const setStartEndNode = (id, r, c) =>{
+    if(!pathExist){
       if(id === 1){
           let newGrid = [...Grid] // array copy
           let preStartNode = newGrid[START_NODE_ROW][START_NODE_COL];
@@ -231,6 +225,7 @@ function Graph() {
           END_NODE_ROW = r;
           END_NODE_COL = c;
       } 
+    }
   }
 
     const animationTimeHandle = (type) =>{
@@ -369,19 +364,19 @@ function Graph() {
                 <div className='last-buttons'>
                     <div className='last-buttons-1st2nd'>
                         <button className='button-4 button-5' onClick={gridInitialize}>Clear walls</button>
-                        <button className='button-4 button-5' onClick={clearPathHandle}>Clear path</button>
+                        {/* <button className='button-4 button-5' onClick={clearPathHandle}>Clear path</button> */}
+                        <button className='button-4 button-5' style={{backgroundColor: '#ef4444', color: 'white'}}onClick={()=>{
+                            START_NODE_ROW = InitSR;
+                            START_NODE_ROW = InitSC;
+                            END_NODE_ROW = InitER;
+                            END_NODE_COL = InitEC;
+                            clearPathHandle();
+                            gridInitialize();
+                            setPathExist(false);
+                        }}>
+                            Reset board
+                        </button>
                     </div>
-                    <button className='button-4 button-6' onClick={()=>{
-                        START_NODE_ROW = InitSR;
-                        START_NODE_ROW = InitSC;
-                        END_NODE_ROW = InitER;
-                        END_NODE_COL = InitEC;
-                        clearPathHandle();
-                        gridInitialize();
-                        setPathExist(false);
-                    }}>
-                        Reset board
-                    </button>
                 </div>
             </div>
         </div>
