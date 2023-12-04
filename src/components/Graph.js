@@ -9,15 +9,14 @@ import FormControl from "@mui/material/FormControl";
 import Select from "@mui/material/Select";
 import Slider from "@mui/material/Slider";
 
-
 var rows;
 var cols;
-if(window.innerWidth <= 768) {
+if (window.innerWidth <= 768) {
   rows = Math.floor((window.innerHeight * 0.9) / 30);
   cols = Math.floor((window.innerWidth * 0.9) / 30); //34
-} else  {
+} else {
   rows = Math.floor((window.innerHeight * 0.7) / 30);
-  cols = Math.floor((window.innerWidth * 0.7) / 30); //34  
+  cols = Math.floor((window.innerWidth * 0.7) / 30); //34
 }
 
 var START_NODE_ROW = 4,
@@ -55,13 +54,17 @@ function Graph() {
 
   useEffect(() => {
     const handleResize = () => {
-      if (window.innerWidth <=  768) {
+      if (window.innerWidth <= 768) {
         rows = Math.floor((window.innerHeight * 0.9) / 30);
         cols = Math.floor((window.innerWidth * 0.9) / 30);
-      }  else {
-      rows = Math.floor((window.innerHeight * 0.7) / 30);
-      cols = Math.floor((window.innerWidth * 0.7) / 30);
+      } else {
+        rows = Math.floor((window.innerHeight * 0.7) / 30);
+        cols = Math.floor((window.innerWidth * 0.7) / 30);
       }
+      START_NODE_ROW = 4;
+      START_NODE_COL = 6;
+      END_NODE_ROW = rows - 6;
+      END_NODE_COL = cols - 6;
       handleForceUpdate();
     };
 
@@ -421,10 +424,11 @@ function Graph() {
                 }}
                 aria-label="Restricted values"
                 defaultValue={1}
+                // valueLabelDisplay={false}
                 valueLabelFormat={valueLabelFormat}
                 getAriaValueText={valuetext}
                 step={null}
-                valueLabelDisplay="auto"
+                valueLabelDisplay="off"
                 min={1}
                 max={3}
                 marks={marks}

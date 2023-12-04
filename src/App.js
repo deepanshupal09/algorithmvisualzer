@@ -15,7 +15,7 @@ import img4 from "../src/images/graphtab.png";
 import img5 from "../src/images/graphalgo.png";
 import img6 from "../src/images/dragdrop.gif";
 import img7 from "../src/images/walls.gif";
-import img8 from "../src/images/slidergraph.png";
+import img8 from "../src/images/slidergraph.gif";
 import img9 from "../src/images/resetgraph.png";
 import img10 from "../src/images/find possible path.png";
 
