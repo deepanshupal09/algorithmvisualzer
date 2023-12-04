@@ -4,22 +4,36 @@
 .grid {
    display: flex;
    justify-content: center;
+   /* width: 70%; */
 }
 
 
 .path-container{
     margin-top: 30px;
-    margin-left:10px;
+    /* margin-left:10px; */
    
     /* max-width: 1400px; */
     display: flex; 
-    justify-content: left; 
+    justify-content: center; 
  }
  .path-ui-position{
    display: flex;
    justify-content: space-around;
    /* width: 1; */
    /* width: 100%; */
+ }
+
+ @media only screen and (max-width: 768px) {
+   .path-ui-position  {
+      flex-direction: column;
+      justify-content: center;
+   }
+    .control {
+       order: 1;
+    }
+   .grid {
+      order: 2;
+   }
  }
  
  .path-header{
@@ -34,7 +48,7 @@
    margin-top: 6px;
    justify-content: center;
    margin-bottom: 10px;
-   margin-left: 10px;
+   /* margin-left: 10px; */
  }
  
  .start {
@@ -130,12 +144,12 @@
    cursor: pointer;
    /* width: 410px; */
    position: relative;
-   padding: 8px 12px;
-   margin-right: 8px;
+   padding: 16px 12px;
+   /* margin-right: 8px; */
    width: 100%;
-   margin-top: 20px;
-   margin-left: 15px;
-   height: 55px;
+   /* margin-top: 20px; */
+   /* margin-left: 15px; */
+   /* height: 55px; */
    transition: background-color 0.2s cubic-bezier(0.3, 0, 0.5, 1);
    user-select: none;
    -webkit-user-select: none;

@@ -9,8 +9,16 @@ import FormControl from "@mui/material/FormControl";
 import Select from "@mui/material/Select";
 import Slider from "@mui/material/Slider";
 
-var rows = Math.floor((window.innerHeight * 0.8) / 30);
-var cols = Math.floor((window.innerWidth * 0.70) / 30); //34
+
+var rows;
+var cols;
+if(window.innerWidth <= 768) {
+  rows = Math.floor((window.innerHeight * 0.9) / 30);
+  cols = Math.floor((window.innerWidth * 0.9) / 30); //34
+} else  {
+  rows = Math.floor((window.innerHeight * 0.7) / 30);
+  cols = Math.floor((window.innerWidth * 0.7) / 30); //34  
+}
 
 var START_NODE_ROW = 4,
   START_NODE_COL = 6;
@@ -29,6 +37,12 @@ function Graph() {
   const [pathID, setPathID] = useState(0);
   const [pathExist, setPathExist] = useState(false);
   const [animateType, setAnimateTimeType] = useState(2);
+  const [, forceUpdate] = useState();
+
+  // Call this function to force a re-render
+  const handleForceUpdate = () => {
+    forceUpdate(Math.random());
+  };
 
   useEffect(() => {
     gridInitialize();
@@ -41,8 +55,14 @@ function Graph() {
 
   useEffect(() => {
     const handleResize = () => {
-      rows = Math.floor((window.innerHeight * 0.8) / 30);
+      if (window.innerWidth <=  768) {
+        rows = Math.floor((window.innerHeight * 0.9) / 30);
+        cols = Math.floor((window.innerWidth * 0.9) / 30);
+      }  else {
+      rows = Math.floor((window.innerHeight * 0.7) / 30);
       cols = Math.floor((window.innerWidth * 0.7) / 30);
+      }
+      handleForceUpdate();
     };
 
     window.addEventListener("resize", handleResize);
@@ -320,98 +340,98 @@ function Graph() {
             })}
           </div>
         </div>
-        <div className="w-[30vw] px-4 ">
-          <div className="button-formcontrol">
+        <div className="flex flex-col max-md:w-[90vw] w-[30vw] md:pr-4  max-md:py-10">
+          <div className="  flex  flex-col space-y-5">
+            {/* <div className="button-formcontrol"> */}
             {/* <select className='my-drop-down' value={pathID} onChange={(e)=>{setPathID(parseInt(e.target.value))}}>
                         <option value="0">Breadth-First Search</option>
                         <option value="1">Depth-First Search</option>
                         <option value="2">Djikstra's Algorithm</option>
                     </select> */}
-            <FormControl fullWidth>
-              <InputLabel
-                id="demo-simple-select-label"
-                className="my-drop-down-label"
-              >
-                Algorithm
-              </InputLabel>
-              <Select
-                fullWidth
-                className="my-drop-down"
-                value={pathID}
-                labelId="demo-simple-select-label"
-                onChange={(e) => {
-                  setPathID(parseInt(e.target.value));
-                }}
-                id="demo-simple-select"
-                label="Algorithm"
-              >
-                <MenuItem value={0}>Breadth-First Search</MenuItem>
-                <MenuItem value={1}>Depth-First Search</MenuItem>
-                <MenuItem value={2}>Djikstra's Algorithm</MenuItem>
-              </Select>
-            </FormControl>
+            <div className="">
+              <FormControl fullWidth>
+                <InputLabel
+                  id="demo-simple-select-label"
+                  className="my-drop-down-label"
+                >
+                  Algorithm
+                </InputLabel>
+                <Select
+                  fullWidth
+                  className="my-drop-down"
+                  value={pathID}
+                  labelId="demo-simple-select-label"
+                  onChange={(e) => {
+                    setPathID(parseInt(e.target.value));
+                  }}
+                  id="demo-simple-select"
+                  label="Algorithm"
+                >
+                  <MenuItem value={0}>Breadth-First Search</MenuItem>
+                  <MenuItem value={1}>Depth-First Search</MenuItem>
+                  <MenuItem value={2}>Djikstra's Algorithm</MenuItem>
+                </Select>
+              </FormControl>
+            </div>
             <button className="button-4 start-btn" onClick={pathFinding}>
               Find the possible path
             </button>
-          </div>
-          <div className="path-speed-btns">
-            {/* <button className={`button-1 ${animateType===1 && 'curr-speed-btn'}`} onClick={()=>animationTimeHandle(1)}>Fast</button>
-                    <button className={`button-1 ${animateType===2 && 'curr-speed-btn'}`} onClick={()=>animationTimeHandle(2)}>Average</button>
-                    <button className={`button-1 ${animateType===3 && 'curr-speed-btn'}`} onClick={()=>animationTimeHandle(3)}>Slow</button> */}
-            <Slider
-              sx={{
-                color: "#3b82f6",
-                marginLeft: "10px",
-                height: 8,
-                "& .MuiSlider-track": {
-                  border: "none",
-                },
-                "& .MuiSlider-thumb": {
-                  height: 24,
-                  width: 24,
-                  backgroundColor: "#fff",
-                  border: "2px solid currentColor",
-                  "&:focus, &:hover, &.Mui-active, &.Mui-focusVisible": {
-                    boxShadow: "inherit",
+            <div className="my-5 w-[98%]">
+              <Slider
+                sx={{
+                  color: "#3b82f6",
+                  // marginLeft: "10px",
+                  marginTop: "10px",
+                  height: 8,
+                  "& .MuiSlider-track": {
+                    border: "none",
                   },
-                  "&:before": {
-                    display: "none",
+                  "& .MuiSlider-thumb": {
+                    height: 24,
+                    width: 24,
+                    backgroundColor: "#fff",
+                    border: "2px solid currentColor",
+                    "&:focus, &:hover, &.Mui-active, &.Mui-focusVisible": {
+                      boxShadow: "inherit",
+                    },
+                    "&:before": {
+                      display: "none",
+                    },
                   },
-                },
-                "& .MuiSlider-valueLabel": {
-                  lineHeight: 1.2,
-                  fontSize: 12,
-                  background: "unset",
-                  padding: 0,
-                  width: 32,
-                  height: 32,
-                  borderRadius: "50% 50% 50% 0",
-                  backgroundColor: "#3b82f6",
-                  transformOrigin: "bottom left",
-                  transform: "translate(50%, -100%) rotate(-45deg) scale(0)",
-                  "&:before": { display: "none" },
-                  "&.MuiSlider-valueLabelOpen": {
-                    transform: "translate(50%, -100%) rotate(-45deg) scale(1)",
+                  "& .MuiSlider-valueLabel": {
+                    lineHeight: 1.2,
+                    fontSize: 12,
+                    background: "unset",
+                    padding: 0,
+                    width: 32,
+                    height: 32,
+                    borderRadius: "50% 50% 50% 0",
+                    backgroundColor: "#3b82f6",
+                    transformOrigin: "bottom left",
+                    transform: "translate(50%, -100%) rotate(-45deg) scale(0)",
+                    "&:before": { display: "none" },
+                    "&.MuiSlider-valueLabelOpen": {
+                      transform:
+                        "translate(50%, -100%) rotate(-45deg) scale(1)",
+                    },
+                    "& > *": {
+                      transform: "rotate(45deg)",
+                    },
                   },
-                  "& > *": {
-                    transform: "rotate(45deg)",
-                  },
-                },
-              }}
-              aria-label="Restricted values"
-              defaultValue={1}
-              valueLabelFormat={valueLabelFormat}
-              getAriaValueText={valuetext}
-              step={null}
-              valueLabelDisplay="auto"
-              min={1}
-              max={3}
-              marks={marks}
-              onChange={(e, ne) => animationTimeHandle(ne)}
-            />
-          </div>
-          <div className="last-buttons">
-            <div className="flex w-full">
+                }}
+                aria-label="Restricted values"
+                defaultValue={1}
+                valueLabelFormat={valueLabelFormat}
+                getAriaValueText={valuetext}
+                step={null}
+                valueLabelDisplay="auto"
+                min={1}
+                max={3}
+                marks={marks}
+                onChange={(e, ne) => animationTimeHandle(ne)}
+              />
+            </div>
+            <div className="flex">
               <button className="button-4 button-5" onClick={gridInitialize}>
                 Clear walls
               </button>
@@ -433,8 +453,15 @@ function Graph() {
               </button>
             </div>
           </div>
+
+          {/* <button className={`button-1 ${animateType===1 && 'curr-speed-btn'}`} onClick={()=>animationTimeHandle(1)}>Fast</button>
+                    <button className={`button-1 ${animateType===2 && 'curr-speed-btn'}`} onClick={()=>animationTimeHandle(2)}>Average</button>
+                    <button className={`button-1 ${animateType===3 && 'curr-speed-btn'}`} onClick={()=>animationTimeHandle(3)}>Slow</button> */}
+
+          {/* <div className="last-buttons"></div> */}
         </div>
       </div>
+      {/* </div> */}
     </div>
   );
 }
