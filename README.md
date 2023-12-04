@@ -19,7 +19,7 @@ Algorithm Visualizer is a platform where one can simulate certain algorithms.
 - Javascript
 # Installation
   - To install all dependencies of the project.
-    - `npm install`
+    - `npm i`
     - `npm install -D tailwindcss`
     - `npx tailwindcss init`
     - `npm install @mui/material @emotion/react @emotion/styled`
