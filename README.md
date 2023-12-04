@@ -20,13 +20,17 @@ Algorithm Visualizer is a platform where one can simulate certain algorithms.
 # Installation
   - To install all dependencies of the project.
     - `npm install`
+    - `npm install -D tailwindcss`
+    - `npx tailwindcss init`
+    - `npm install @mui/material @emotion/react @emotion/styled`
+    - `npm install @mui/material @mui/styled-engine-sc styled-components`
+    - `npm install @fontsource/roboto`
+    - `npm install @mui/joy @emotion/react @emotion/styled`
+    - `npm install @fontsource/inter`
   
   - To run the app on http://localhost:3000.
     - `npm start`
-  
-  - To build the bundled app for production on the `build` folder.
-    - `npm build`
-    - `npm deploy`
+      
 # Screenshots
 ![image](https://github.com/deepanshupal09/algorithmvisualzer/assets/129399840/6b198775-ba0e-43ba-87f3-3551ebd90427)
 ![image](https://github.com/deepanshupal09/algorithmvisualzer/assets/129399840/779b97ab-8206-4bc2-a9ed-eb18cafa704e)
