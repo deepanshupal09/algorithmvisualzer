@@ -132,28 +132,27 @@ export default function App() {
                   Welcome to Algorithm Visualizer{" "}
                   <span className="text-slate-800 text-lg font-normal">
                     {" "}
-                    &nbsp;({slide}/11){" "}
                   </span>
                 </div>
                 <div className={`${slide > 1 && slide <= 4 ? "" : "hidden"}`}>
                   Sorting Algorithm{" "}
                   <span className="text-slate-800 text-lg font-normal">
                     {" "}
-                    &nbsp;({slide}/11){" "}
+                    &nbsp;({slide-1}/10){" "}
                   </span>
                 </div>
                 <div className={`${slide > 4 && slide < 11 ? "" : "hidden"}`}>
                   Graph Algorithm{" "}
                   <span className="text-slate-800 text-lg font-normal">
                     {" "}
-                    &nbsp;({slide}/11){" "}
+                    &nbsp;({slide-1}/10){" "}
                   </span>
                 </div>
                 <div className={`${slide === 11 ? "" : "hidden"}`}>
                   Still there?{" "}
                   <span className="text-slate-800 text-lg font-normal">
                     {" "}
-                    &nbsp;({slide}/11){" "}
+                    &nbsp;({slide-1}/10){" "}
                   </span>
                 </div>
               </DialogTitle>
