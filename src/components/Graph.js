@@ -37,6 +37,7 @@ function Graph() {
   const [pathExist, setPathExist] = useState(false);
   const [animateType, setAnimateTimeType] = useState(2);
   const [, forceUpdate] = useState();
+  const [checkWall, setCheckWall] =useState(false);  //useState for disabling walls while animation
 
   // Call this function to force a re-render
   const handleForceUpdate = () => {
@@ -119,6 +120,7 @@ function Graph() {
   };
   // animate the algorithm
   async function animateVisitedNodes(visitedNodes) {
+    setCheckWall(true);
     for (let i = 0; i < visitedNodes.length; i++) {
       const node = visitedNodes[i];
       await waitForAnimatoin(animateTime);
@@ -132,8 +134,11 @@ function Graph() {
         document.getElementById(`row${node.x}_col${node.y}`).className =
           "node-visited";
     }
+    setCheckWall(false);
+    // createWall(visitedNodes,visitedNodes) = false;
   }
   async function animateShortestPath(pathNode) {
+    setCheckWall(true);
     pathNode.reverse();
     for (let i = 0; i < pathNode.length; i++) {
       const node = pathNode[i];
@@ -148,6 +153,8 @@ function Graph() {
         document.getElementById(`row${node.x}_col${node.y}`).className =
           "shortestPath";
     }
+    setCheckWall(false);
+    // createWall(pathNode,pathNode) = false;
   }
 
   const pathFinding = async () => {
@@ -226,7 +233,7 @@ function Graph() {
     /*
      ********* the concept should be known array reference and copy *****
      */
-    if (!pathExist) {
+    if (!pathExist && !checkWall) {
       var newGrid = [...Grid]; // array copy
       var node = newGrid[row][col];
       node.isWall = !node.isWall;
