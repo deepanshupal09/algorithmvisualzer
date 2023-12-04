@@ -39,7 +39,10 @@ Algorithm Visualizer is a platform where one can simulate certain algorithms.
 
 ![image](https://github.com/deepanshupal09/algorithmvisualzer/assets/129399840/425e8036-cb46-48d7-a1be-2761e8fbd711)
 
-![image](https://github.com/deepanshupal09/algorithmvisualzer/assets/129399840/041597ff-ffb3-4e98-9218-36dd061cf009)
+![image](https://github.com/deepanshupal09/algorithmvisualzer/assets/129399840/8658b6b3-9a53-4cfe-97e3-ba6eb40b7514)
+
+![image](https://github.com/deepanshupal09/algorithmvisualzer/assets/129399840/9e0ece9c-519f-4cb4-9b87-945aff4bb370)
+
 
 
 
