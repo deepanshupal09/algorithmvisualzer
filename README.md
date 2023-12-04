@@ -4,13 +4,13 @@ Algorithm Visualizer is a platform where one can simulate certain algorithms.
 - In graph section, each grid cell represents a node in a implicit graph. Each node has 4 adjacent node and the distance being 1 unit between them.
 
 # Algorithms Used
-1. SORTING Algortihms    
+- Sorting Algortihms    
     - Bubble Sort
     - Insertion Sort
     - Merge Sort
     - Heap Sort
     - Quick Sort
-2. GRAPH Algorithms 
+- Graph Algorithms 
     - Breadth-First Search
     - Depth-First Search
     - Djikstra's Algorithm 
