@@ -32,3 +32,13 @@ Algorithm Visualizer is a platform where one can simulate certain algorithms.
     - `npm build`
     - `npm deploy`
 
+# Screenshots
+![image](https://github.com/deepanshupal09/algorithmvisualzer/assets/129399840/6b198775-ba0e-43ba-87f3-3551ebd90427)
+
+![image](https://github.com/deepanshupal09/algorithmvisualzer/assets/129399840/779b97ab-8206-4bc2-a9ed-eb18cafa704e)
+
+![image](https://github.com/deepanshupal09/algorithmvisualzer/assets/129399840/041597ff-ffb3-4e98-9218-36dd061cf009)
+
+
+
+
